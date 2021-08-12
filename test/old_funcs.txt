@@ -1,0 +1,127 @@
+    def init_buttons(self):
+        self.butt_mp3_select.place(relx=0.054,
+                                   rely=0.067,
+                                   height=54,
+                                   width=157
+                                   )
+        self.butt_mp3_select.configure(activebackground="#ececec")
+        self.butt_mp3_select.configure(activeforeground="#000000")
+        self.butt_mp3_select.configure(background="#d9d9d9")
+        self.butt_mp3_select.configure(disabledforeground="#a3a3a3")
+        self.butt_mp3_select.configure(foreground="#000000")
+        self.butt_mp3_select.configure(highlightbackground="#d9d9d9")
+        self.butt_mp3_select.configure(highlightcolor="black")
+        self.butt_mp3_select.configure(pady="0")
+        self.butt_mp3_select.configure(text='''Select MP3''')
+        self.butt_mp3_select.configure(command=self.select_music)
+
+        self.butt_mp3_bind.place(relx=0.054,
+                                 rely=0.222,
+                                 height=54,
+                                 width=157
+                                 )
+        self.butt_mp3_bind.configure(activebackground="#ececec")
+        self.butt_mp3_bind.configure(activeforeground="#000000")
+        self.butt_mp3_bind.configure(background="#d9d9d9")
+        self.butt_mp3_bind.configure(disabledforeground="#a3a3a3")
+        self.butt_mp3_bind.configure(foreground="#000000")
+        self.butt_mp3_bind.configure(highlightbackground="#d9d9d9")
+        self.butt_mp3_bind.configure(highlightcolor="black")
+        self.butt_mp3_bind.configure(pady="0")
+        self.butt_mp3_bind.configure(text='''Bind to schedule''')
+        self.butt_mp3_bind.configure(command=self.create_insert_schedule)
+
+    def init_prazdnik(self):
+        self.prazdnik_frame.place(relx=0.363,
+                                  rely=0.022,
+                                  relheight=0.344,
+                                  relwidth=0.554
+                                  )
+        self.prazdnik_frame.configure(relief='groove')
+        self.prazdnik_frame.configure(foreground="black")
+        self.prazdnik_frame.configure(text='''P R A Z D N I K''')
+        self.prazdnik_frame.configure(background="#d9d9d9")
+
+        self.butt_pl_select.place(relx=0.066,
+                                  rely=0.194,
+                                  height=44,
+                                  width=127,
+                                  bordermode='ignore'
+                                  )
+        self.butt_pl_select.configure(activebackground="#ececec")
+        self.butt_pl_select.configure(activeforeground="#000000")
+        self.butt_pl_select.configure(background="#d9d9d9")
+        self.butt_pl_select.configure(disabledforeground="#a3a3a3")
+        self.butt_pl_select.configure(foreground="#000000")
+        self.butt_pl_select.configure(highlightbackground="#d9d9d9")
+        self.butt_pl_select.configure(highlightcolor="black")
+        self.butt_pl_select.configure(pady="0")
+        self.butt_pl_select.configure(text='''Select playlist''')
+        self.butt_pl_select.configure(command=self.hide_columns)
+
+        self.butt_pl_clear.place(relx=0.066,
+                                 rely=0.581,
+                                 height=44,
+                                 width=127,
+                                 bordermode='ignore'
+                                 )
+        self.butt_pl_clear.configure(activebackground="#ececec")
+        self.butt_pl_clear.configure(activeforeground="#000000")
+        self.butt_pl_clear.configure(background="#d9d9d9")
+        self.butt_pl_clear.configure(disabledforeground="#a3a3a3")
+        self.butt_pl_clear.configure(foreground="#000000")
+        self.butt_pl_clear.configure(highlightbackground="#d9d9d9")
+        self.butt_pl_clear.configure(highlightcolor="black")
+        self.butt_pl_clear.configure(pady="0")
+        self.butt_pl_clear.configure(text='''Clear playlist''')
+        self.butt_pl_clear.configure(command=self.show_columns)
+
+        self.butt_pl_shuffle.place(relx=0.525,
+                                   rely=0.194,
+                                   height=44,
+                                   width=127,
+                                   bordermode='ignore'
+                                   )
+        self.butt_pl_shuffle.configure(activebackground="#ececec")
+        self.butt_pl_shuffle.configure(activeforeground="#000000")
+        self.butt_pl_shuffle.configure(background="#d9d9d9")
+        self.butt_pl_shuffle.configure(disabledforeground="#a3a3a3")
+        self.butt_pl_shuffle.configure(foreground="#000000")
+        self.butt_pl_shuffle.configure(highlightbackground="#d9d9d9")
+        self.butt_pl_shuffle.configure(highlightcolor="black")
+        self.butt_pl_shuffle.configure(pady="0")
+        self.butt_pl_shuffle.configure(text='''Shuffle playlist''')
+
+
+    def create_schedule(self):
+        start_time = datetime.combine(date.today(), time(8, 30, 00))
+        t = timedelta(minutes=45)
+        finish_time = start_time + t
+
+        for i in range(1, 8):
+            values = (i, f'{start_time.strftime("%H:%M")}  -  {finish_time.strftime("%H:%M")}')
+            self.main_tree.insert(parent='', index='end', iid=i, values=values)
+            schedule.every().day.at(str(start_time.time())[:-3]).do(self.play_mp3).tag('start')
+            schedule.every().day.at(str(finish_time.time())[:-3]).do(self.play_mp3).tag('end')
+            t0 = timedelta(hours=1)
+            start_time += t0
+            finish_time += t0
+
+
+        def select_playlist(self):
+        from pathlib import Path
+        PATH = ''
+        pl_name = askopenfilename(initialdir=".", title="Select file",
+                               filetypes=[("WPL Playlists", "*.wpl")])
+
+        abs_pl_name = Path(pl_name).absolute()
+
+        with open(abs_pl_name, 'r', encoding="utf-8") as file:
+            data = file.readlines()
+
+        good_data = [x.strip()[:-3] for x in data if x.count('src')]
+        good_data = [x.split('\\') for x in good_data]
+        good_data = [PATH+[x for x in t if x.count('mp3')][0] for t in good_data]
+
+        self.file_list = good_data
+        print(self.file_list)

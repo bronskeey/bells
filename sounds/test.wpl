@@ -1,0 +1,19 @@
+<?wpl version="1.0"?>
+<smil>
+    <head>
+        <meta name="Generator" content="Microsoft Windows Media Player -- 12.0.19041.746"/>
+        <meta name="ItemCount" content="7"/>
+        <title>test</title>
+    </head>
+    <body>
+        <seq>
+            <media src="..\..\Desktop\depo\sting (1).mp3"/>
+            <media src="..\..\Desktop\depo\sting (2).mp3"/>
+            <media src="..\..\Desktop\depo\sting (3).mp3"/>
+            <media src="..\..\Desktop\depo\sting (4).mp3"/>
+            <media src="..\..\Desktop\depo\sting (5).mp3"/>
+            <media src="..\..\Desktop\depo\depo1.mp3"/>
+            <media src="..\..\Desktop\depo\depo2.mp3"/>
+        </seq>
+    </body>
+</smil>
