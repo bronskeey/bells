@@ -2,6 +2,7 @@
 __pycache__/
 .idea/
 test/
+old_versions/
 *.py[cod]
 *$py.class
 
