@@ -70,8 +70,8 @@ class MainClass:
         _ana1color = '#d9d9d9'  # X11 color: 'gray85'
         _ana2color = '#ececec'  # Closest X11 color: 'gray92'
 
-        self.path      = '--'
-        self.file_name = '--'
+        self.path      = ''
+        self.file_name = ''
         self.file_list = []
 
         self.style = ttk.Style()
